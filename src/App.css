@@ -1,0 +1,38 @@
+@import '~antd/dist/antd.css';
+
+.App {
+  text-align: center;
+}
+
+.container{
+  margin-top:50px;
+}
+
+.table{
+  border: 1px solid #dddddd;
+}
+.table-header{
+  font-family:sans-serif;
+   font-weight:100;
+  font-size:20px;
+  color:#666666;
+}
+
+.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+ background-color: #f5ff9b;
+}
+
+.table-body{
+  font-size:15px;
+  color:black;
+  font-weight:200;
+  font-family:sans-serif;
+}
+
+a {
+  color:black;
+}
+
+.highlight {
+  color:red;
+} 
