@@ -1,5 +1,5 @@
 import React from 'react';
-//import PropTypes from 'prop-types'; 
+import PropTypes from 'prop-types'; 
 
 const SingleInput = (props) => (
     <div className="form-group">
@@ -11,11 +11,10 @@ const SingleInput = (props) => (
     </div>
 );
 
-// SingleInput.propTypes = {
-//     header:PropTypes.string.isRequired,
-//     content:PropTypes.string.isRequired,
-//     controlFunc: PropTypes.func.isRequired,
-//     //function to handle change in input
-// };
+SingleInput.propTypes = {
+    header:PropTypes.string.isRequired,
+    content:PropTypes.string.isRequired,
+    onChange: PropTypes.func.isRequired,
+};
 
 export default SingleInput;

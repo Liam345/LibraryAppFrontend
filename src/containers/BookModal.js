@@ -6,32 +6,47 @@ import SingleInput from '../components/SingleInput';
 class BookModal extends Component {
   state = {
     visible: false,
+    confirmLoading:false,
+    title:this.props.title||'',
+    author:this.props.author||'',
+    id:this.props.id||''
   }
 
   showModal = () => {
     this.setState({
       visible: true,
-      confirmLodaing:false,
     });
   }
 
-  
+  handleTitleChange = (e) =>{
+    this.setState({title:e.target.value});
+  }
+
+  handleAuthorChange = (e) =>{
+    this.setState({author:e.target.value});
+  }
 
   handleOk = () => {
-    this.props.postData();
+    let values = {
+      title: this.state.title,
+      author: this.state.author,
+      id:this.state.id
+    };
+
+    this.props.handleData(values);
     this.setState({
-      confirmLodaing:true,
+      confirmLoading:true,
     });
 
     setTimeout(() =>{
       this.setState({
         visible:false,
-        confirmLodaing:false
+        confirmLoading:false
       });
     },2000)
   }
+
   handleCancel = () => {
-    console.log('Clicked cancel button');
     this.setState({
       visible: false,
     });
@@ -50,16 +65,14 @@ class BookModal extends Component {
         >
           <SingleInput 
           header="Book title:"
-          content={this.props.title}
-          //controlFunc={this.handleTitleChange}
-          onChange={this.props.controlTitleFunc}
+          content={this.state.title}
+          onChange={this.handleTitleChange}
           
           />
           <SingleInput 
           header="Book author:"
-          content={this.props.author}
-          //controlFunc={this.handleAuthorChange}
-          onChange={this.props.controlAuthorFunc}
+          content={this.state.author}
+          onChange={this.handleAuthorChange}
           />
 
         </Modal>
@@ -68,17 +81,10 @@ class BookModal extends Component {
   }
 }
 
-// BookModal.propTypes = {
-//     btnText:PropTypes.string.isRequired,
-//     header:PropTypes.string.isRequired,
-//     title:PropTypes.string.isRequired,
-//     author:PropTypes.string.isRequired,
-//     controlTitleFunc: PropTypes.func.isRequired,
-//     controlAuthorFunc: PropTypes.func.isRequired,
-//     //function to handle handleOk (i.e. submit) function
-// };
+BookModal.propTypes = {
+    btnText:PropTypes.string.isRequired,
+    header:PropTypes.string.isRequired,
+    handleData: PropTypes.func.isRequired
+};
 
 export default BookModal;
-//1) the state items should'nt come from state but in turn should come from props so as
-//it can also handle edit functionality
-
