@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import BookRow from "../components/BookRow";
-import BookModal from "./BookModal";
+import BookModal from "./CRUBookModal";
 
 class BooksTable extends Component {
   constructor(props) {
@@ -11,18 +11,19 @@ class BooksTable extends Component {
   }
 
   postData = values => {
-    fetch("https://library-api.glitch.me/api/books", {
+    fetch("/api/books", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(values)
-    });
-    this.getApi();
+    })
+      .then(response => response.json())
+      .then(() => this.getApi());
   };
 
   getApi = () => {
-    fetch("https://library-api.glitch.me/api/books", {
+    fetch("/api/books", {
       cache: "reload",
       method: "GET"
     })
@@ -30,13 +31,17 @@ class BooksTable extends Component {
       .then(data => this.setState({ bookList: data }));
   };
 
+  // forceUpdate() {
+  //   this.getApi();
+  // }
+
   componentDidMount() {
     this.getApi();
   }
 
   render() {
     const bookRows = this.state.bookList.map((book, index) => {
-      return <BookRow key={index} book={book} />;
+      return <BookRow key={index} book={book} getApi={this.getApi} />;
     });
     return (
       <div className="container">

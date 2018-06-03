@@ -1,12 +1,12 @@
 import React from "react";
-import BookModal from "../containers/BookModal";
+import BookModal from "../containers/CRUBookModal";
 import DeleteModal from "./DeleteModal";
 import EmailModal from "./EmailModal";
 import PropTypes from "prop-types";
 import { message } from "antd";
 
 const sendEmail = (id, values) => {
-  fetch(`https://library-api.glitch.me/api/books/contact/${id}`, {
+  fetch(`/api/books/contact/${id}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -21,28 +21,28 @@ const sendEmail = (id, values) => {
       }
     })
     .catch(error => console.error("Error:", error));
-
-  //message.success("Email sent successfully!");
 };
 
 const deleteData = id => {
-  fetch(`https://library-api.glitch.me/api/books/${id}`, {
+  fetch(`/api/books/${id}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json"
     }
   });
+  //this.props.getApi;
   //this.getApi();
 };
 
 const putData = values => {
-  fetch(`https://library-api.glitch.me/api/books/${values.id}`, {
+  fetch(`/api/books/${values.id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json"
     },
     body: JSON.stringify(values)
   });
+  //this.props.getApi;
   //this.getApi();
 };
 

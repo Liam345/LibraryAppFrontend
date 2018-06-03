@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Modal, Button } from "antd";
 import PropTypes from "prop-types";
 import SingleInput from "./SingleInput";
+import SingleBigInput from "./SingleBigInput";
 
 class EmailModal extends Component {
   state = {
@@ -75,7 +76,7 @@ class EmailModal extends Component {
             name="subject"
             onChange={this.handleUserInput}
           />
-          <SingleInput
+          <SingleBigInput
             header="Content"
             content={this.state.content}
             name="content"
@@ -90,7 +91,6 @@ class EmailModal extends Component {
 EmailModal.propTypes = {
   id: PropTypes.number.isRequired,
   btnText: PropTypes.string.isRequired,
-  //header:PropTypes.string.isRequired,
   handleData: PropTypes.func.isRequired
 };
 

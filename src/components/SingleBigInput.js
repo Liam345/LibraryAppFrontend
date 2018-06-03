@@ -1,12 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const SingleInput = props => (
+const SingleBigInput = props => (
   <div className="form-group">
     <label>{props.header}</label>
-    <input
+    <textarea
       type="text"
-      style={{ height: 40 }}
+      style={{ height: 100 }}
       className="form-control"
       value={props.content}
       onChange={props.onChange}
@@ -15,10 +15,10 @@ const SingleInput = props => (
   </div>
 );
 
-SingleInput.propTypes = {
+SingleBigInput.propTypes = {
   header: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired
 };
 
-export default SingleInput;
+export default SingleBigInput;

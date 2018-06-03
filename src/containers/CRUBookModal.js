@@ -31,6 +31,7 @@ class BookModal extends Component {
     let titleValid = this.state.titleValid;
     let emailValid = this.state.emailValid;
     let authorValid = this.state.authorValid;
+    let emailMatch;
 
     switch (fieldName) {
       case "title":
@@ -42,7 +43,8 @@ class BookModal extends Component {
         formErrors.author = authorValid ? "" : "field is empty";
         break;
       case "email":
-        emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
+        emailMatch = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
+        emailValid = emailMatch === null ? false : true;
         formErrors.email = emailValid ? "" : "field is invalid";
         break;
       default:
@@ -108,12 +110,25 @@ class BookModal extends Component {
     });
   };
 
-  //Fix:Hacky change
-  componentDidMount() {
-    this.validateField("title", this.state.title);
-    this.validateField("author", this.state.author);
-    this.validateField("email", this.state.email);
-  }
+  // componentWillReceiveProps() {
+  //   console.log("componentWillReceiveProps");
+  //   console.log("@Before");
+  //   console.log(this.state.formErrors);
+  //   console.log(this.state.titleValid);
+  //   console.log(this.state.authorValid);
+  //   console.log(this.state.emailValid);
+  //   console.log(this.state.formValid);
+  //   this.validateField("title", this.state.title);
+  //   this.validateField("author", this.state.author);
+  //   this.validateField("email", this.state.email);
+  //   this.validateForm();
+  //   console.log("@After");
+  //   console.log(this.state.formErrors);
+  //   console.log(this.state.titleValid);
+  //   console.log(this.state.authorValid);
+  //   console.log(this.state.emailValid);
+  //   console.log(this.state.formValid);
+  // }
 
   render() {
     const { visible, confirmLoading } = this.state;
