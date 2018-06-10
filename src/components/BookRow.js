@@ -23,30 +23,44 @@ const sendEmail = (id, values) => {
     .catch(error => console.error("Error:", error));
 };
 
-const deleteData = id => {
-  fetch(`/api/books/${id}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json"
-    }
-  });
-  //this.props.getApi;
-  //this.getApi();
-};
-
-const putData = values => {
-  fetch(`/api/books/${values.id}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(values)
-  });
-  //this.props.getApi;
-  //this.getApi();
-};
-
 const BookRow = props => {
+  const deleteData = id => {
+    fetch(`/api/books/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(response => {
+        if (response.status >= 400) {
+          throw new Error("Bad response from server");
+        }
+        message.success("Book deleted successfully!");
+        return response.json();
+      })
+      .then(() => props.getApi())
+      .catch(err => console.log("caught it", err));
+  };
+
+  const putData = values => {
+    fetch(`/api/books/${values.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(values)
+    })
+      .then(response => {
+        if (response.status >= 400) {
+          throw new Error("Bad response from server");
+        }
+        message.success("Book edited successfully!");
+        return response.json();
+      })
+      .then(() => props.getApi())
+      .catch(err => console.log("caught it", err));
+  };
+
   return (
     <tr className="table-body">
       <td>{props.book.title}</td>

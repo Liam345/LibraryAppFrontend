@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import BookRow from "../components/BookRow";
-import BookModal from "./CRUBookModal";
+import BookModal from "../containers/CRUBookModal";
+import { message } from "antd";
 
 class BooksTable extends Component {
   constructor(props) {
@@ -18,8 +19,17 @@ class BooksTable extends Component {
       },
       body: JSON.stringify(values)
     })
-      .then(response => response.json())
-      .then(() => this.getApi());
+      .then(response => {
+        if (response.status >= 400) {
+          throw new Error("Bad response from server");
+        }
+        return response.json();
+      })
+      .then(() => {
+        this.getApi();
+        message.success("Book added successfully!");
+      })
+      .catch(err => console.log("caught it", err));
   };
 
   getApi = () => {
@@ -27,13 +37,15 @@ class BooksTable extends Component {
       cache: "reload",
       method: "GET"
     })
-      .then(response => response.json())
-      .then(data => this.setState({ bookList: data }));
+      .then(response => {
+        if (response.status >= 400) {
+          throw new Error("Bad response from server");
+        }
+        return response.json();
+      })
+      .then(data => this.setState({ bookList: data }))
+      .catch(err => console.log("caught it", err));
   };
-
-  // forceUpdate() {
-  //   this.getApi();
-  // }
 
   componentDidMount() {
     this.getApi();
@@ -41,7 +53,7 @@ class BooksTable extends Component {
 
   render() {
     const bookRows = this.state.bookList.map((book, index) => {
-      return <BookRow key={index} book={book} getApi={this.getApi} />;
+      return <BookRow key={book.id} book={book} getApi={this.getApi} />;
     });
     return (
       <div className="container">

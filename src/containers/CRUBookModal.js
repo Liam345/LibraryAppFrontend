@@ -12,7 +12,11 @@ class BookModal extends Component {
     author: this.props.author || "",
     email: this.props.email || "",
     id: this.props.id || "",
-    formErrors: { title: "", author: "", email: "" },
+    formErrors: {
+      title: "field is empty",
+      author: "field is empty",
+      email: "field is invalid"
+    },
     titleValid: false,
     authorValid: false,
     emailValid: false,
@@ -24,6 +28,9 @@ class BookModal extends Component {
     this.setState({
       visible: true
     });
+    this.validateField("title", this.state.title);
+    this.validateField("author", this.state.author);
+    this.validateField("email", this.state.email);
   };
 
   validateField(fieldName, value) {
@@ -109,26 +116,6 @@ class BookModal extends Component {
       showErrors: false
     });
   };
-
-  // componentWillReceiveProps() {
-  //   console.log("componentWillReceiveProps");
-  //   console.log("@Before");
-  //   console.log(this.state.formErrors);
-  //   console.log(this.state.titleValid);
-  //   console.log(this.state.authorValid);
-  //   console.log(this.state.emailValid);
-  //   console.log(this.state.formValid);
-  //   this.validateField("title", this.state.title);
-  //   this.validateField("author", this.state.author);
-  //   this.validateField("email", this.state.email);
-  //   this.validateForm();
-  //   console.log("@After");
-  //   console.log(this.state.formErrors);
-  //   console.log(this.state.titleValid);
-  //   console.log(this.state.authorValid);
-  //   console.log(this.state.emailValid);
-  //   console.log(this.state.formValid);
-  // }
 
   render() {
     const { visible, confirmLoading } = this.state;
