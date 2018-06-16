@@ -1,38 +1,33 @@
 import React, { Component } from "react";
 import BookOrderRow from "../components/BookOrderRow";
 import BookModal from "../containers/CRUBookModal";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as Actions from "../actions";
+
 import { message } from "antd";
 
 class BooksOrder extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      bookList: []
-    };
-  }
-
-  getApi = () => {
-    fetch("/api/books", {
-      cache: "reload",
-      method: "GET"
-    })
-      .then(response => {
-        if (response.status >= 400) {
-          throw new Error("Bad response from server");
-        }
-        return response.json();
-      })
-      .then(data => this.setState({ bookList: data }))
-      .catch(err => console.log("caught it", err));
+  state = {
+    buttonDisabled: {}
   };
 
   componentDidMount() {
-    this.getApi();
+    //this.getApi();
+    this.props.actions.requestBooks();
   }
 
+  handleAddCart = () => {};
+
   render() {
-    const bookOrderRows = this.state.bookList.map((book, index) => {
-      return <BookOrderRow key={book.id} book={book} />;
+    const bookOrderRows = this.props.bookList.map((book, index) => {
+      return (
+        <BookOrderRow
+          key={book.id}
+          book={book}
+          handleAddCart={this.handleAddCart}
+        />
+      );
     });
     return (
       <div className="container">
@@ -51,4 +46,15 @@ class BooksOrder extends Component {
   }
 }
 
-export default BooksOrder;
+function mapStateToProps(state) {
+  return {
+    bookList: state.bookList.data
+  };
+}
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(Actions, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(BooksOrder);
