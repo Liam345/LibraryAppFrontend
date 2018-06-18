@@ -52,7 +52,7 @@ class BooksTable extends Component {
   }
 
   render() {
-    const bookRows = this.state.bookList.map((book, index) => {
+    const bookRows = this.state.bookList.map(book => {
       return <BookRow key={book.id} book={book} getApi={this.getApi} />;
     });
     return (
@@ -62,6 +62,7 @@ class BooksTable extends Component {
             <tr>
               <th>Book Title</th>
               <th>Author</th>
+              <th>Price (AUD)</th>
               <th />
               <th />
               <th>

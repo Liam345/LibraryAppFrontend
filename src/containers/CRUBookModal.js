@@ -11,6 +11,7 @@ class BookModal extends Component {
     title: this.props.title || "",
     author: this.props.author || "",
     email: this.props.email || "",
+    price: this.props.price || "",
     id: this.props.id || "",
     formErrors: {
       title: "field is empty",
@@ -90,6 +91,7 @@ class BookModal extends Component {
         title: this.state.title,
         author: this.state.author,
         email: this.state.email,
+        price: this.state.price,
         id: this.state.id
       };
       //Send back values to parent to update book
@@ -154,6 +156,12 @@ class BookModal extends Component {
             header="Author Email:"
             content={this.state.email}
             name="email"
+            onChange={this.handleUserInput}
+          />
+          <SingleInput
+            header="Book Price (AUD)"
+            content={this.state.price}
+            name="price"
             onChange={this.handleUserInput}
           />
         </Modal>

@@ -11,23 +11,21 @@ class BookOrderRow extends React.Component {
   };
 
   handleAdd = () => {
-    console.log(`Added ${this.props.book.title}`);
-    console.log(`Key is ${this.props.book.id}`);
-    this.setState(prevState => {
-      const index = this.props.book.id;
-      const isDisabled = {
-        ...prevState.isDisabled,
-        [index]: !prevState.isDisabled[index]
-      };
-      console.log(isDisabled);
-      return { isDisabled };
-    });
+    this.props.actions.disableButton(this.props.book.id);
     this.props.actions.addToCart(this.props.book);
-    //this.setState({ isDisabled: !this.state.isDisabled });
-    //We are doing this the React way first
-    this.props.handleAddCart(this.props.book);
+    this.props.actions.initQuantity(this.props.book.id);
+    this.props.actions.initQuantityPrice(
+      this.props.book.id,
+      this.props.book.price
+    );
   };
   render() {
+    const { isButtonDisabled } = this.props; //should be called are buttons disabled instead
+    const { id, title, author } = this.props.book;
+    let isDisabled = false;
+    if (typeof isButtonDisabled[id] != "undefined" && isButtonDisabled[id]) {
+      isDisabled = true;
+    }
     return (
       <tr className="table-body">
         <td>{this.props.book.title}</td>
@@ -35,7 +33,8 @@ class BookOrderRow extends React.Component {
         <td>
           <Button
             type="primary"
-            disabled={this.state.isDisabled[this.props.book.id] || false}
+            //disabled={this.state.isDisabled[this.props.book.id] || false}
+            disabled={isDisabled}
             onClick={this.handleAdd}
           >
             Add To Cart
@@ -52,7 +51,7 @@ BookOrderRow.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    isAdded: state.isAdded.data //change here
+    isButtonDisabled: state.isButtonDisabled
   };
 }
 

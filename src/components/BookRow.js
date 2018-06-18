@@ -65,6 +65,7 @@ const BookRow = props => {
     <tr className="table-body">
       <td>{props.book.title}</td>
       <td>{props.book.author}</td>
+      <td>{props.book.price}</td>
       <td className="highlight">
         <BookModal
           id={props.book.id}
@@ -73,6 +74,7 @@ const BookRow = props => {
           title={props.book.title}
           author={props.book.author}
           email={props.book.email}
+          price={props.book.price}
           handleData={putData}
         />
       </td>

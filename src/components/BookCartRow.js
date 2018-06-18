@@ -1,33 +1,62 @@
 import React from "react";
-import BookModal from "../containers/CRUBookModal";
+import { InputNumber } from "antd";
 import DeleteModal from "./DeleteModal";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as Actions from "../actions";
 
-const BookCartRow = props => {
-  const removeBook = id => {
+class BookCartRow extends React.Component {
+  onQuantityChange = value => {
+    this.props.actions.updateQuantity(this.props.book.id, value);
+    this.props.actions.updateQuantityPrice(
+      this.props.book.id,
+      value,
+      this.props.book.price
+    );
+  };
+
+  removeBook = id => {
     console.log(`Delete id= ${id} clicked`);
   };
 
-  return (
-    <tr className="table-body">
-      <td>{props.book.title}</td>
-      {/* <td>{props.book.author}</td> */}
-      <td>1</td>
-      <td>
-        <DeleteModal
-          id={props.book.id}
-          btnText="Remove"
-          btnType="danger"
-          header="Confirm removing book?"
-          handleData={removeBook}
-        />
-      </td>
-    </tr>
-  );
-};
+  render() {
+    const { price, title, id } = this.props.book;
+    const { quantity } = this.props;
+    return (
+      <tr className="table-body">
+        <td>{title}</td>
+        <td>
+          <InputNumber
+            min={1}
+            max={10}
+            defaultValue={quantity}
+            onChange={this.onQuantityChange}
+          />
+        </td>
+        <td>{price * quantity}</td>
+        <td>
+          <DeleteModal
+            id={id}
+            btnText="Remove"
+            btnType="danger"
+            header="Confirm removing book?"
+            handleData={this.removeBook}
+          />
+        </td>
+      </tr>
+    );
+  }
+}
 
 BookCartRow.propTypes = {
   book: PropTypes.object.isRequired
 };
 
-export default BookCartRow;
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(Actions, dispatch)
+  };
+}
+
+export default connect(null, mapDispatchToProps)(BookCartRow);

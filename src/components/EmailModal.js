@@ -46,7 +46,6 @@ class EmailModal extends Component {
   };
 
   handleCancel = () => {
-    console.log("Clicked cancel button");
     this.setState({
       visible: false,
       subject: "",

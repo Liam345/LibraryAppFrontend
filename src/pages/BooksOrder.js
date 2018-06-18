@@ -1,33 +1,17 @@
 import React, { Component } from "react";
 import BookOrderRow from "../components/BookOrderRow";
-import BookModal from "../containers/CRUBookModal";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as Actions from "../actions";
 
-import { message } from "antd";
-
 class BooksOrder extends Component {
-  state = {
-    buttonDisabled: {}
-  };
-
   componentDidMount() {
-    //this.getApi();
     this.props.actions.requestBooks();
   }
 
-  handleAddCart = () => {};
-
   render() {
-    const bookOrderRows = this.props.bookList.map((book, index) => {
-      return (
-        <BookOrderRow
-          key={book.id}
-          book={book}
-          handleAddCart={this.handleAddCart}
-        />
-      );
+    const bookOrderRows = this.props.bookList.map(book => {
+      return <BookOrderRow key={book.id} book={book} />;
     });
     return (
       <div className="container">

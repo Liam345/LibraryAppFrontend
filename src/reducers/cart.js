@@ -1,8 +1,6 @@
 import { ADD_TO_CART } from "../actions";
 
-const initialState = {
-  data: []
-};
+const initialState = [];
 
 export default function cart(state = initialState, action) {
   switch (action.type) {

@@ -17,7 +17,7 @@ const SingleInput = props => (
 
 SingleInput.propTypes = {
   header: PropTypes.string.isRequired,
-  content: PropTypes.string.isRequired,
+  content: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   onChange: PropTypes.func.isRequired
 };
 

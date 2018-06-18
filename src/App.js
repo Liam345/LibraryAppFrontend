@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route } from "react-router-dom";
 import "./App.css";
 import { connect } from "react-redux";
-//import BooksTable from './containers/BooksTable';
 import PrimaryLayout from "./layouts/PrimaryLayout";
 
 class App extends Component {
