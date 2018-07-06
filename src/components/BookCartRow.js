@@ -18,6 +18,8 @@ class BookCartRow extends React.Component {
 
   removeBook = id => {
     console.log(`Delete id= ${id} clicked`);
+    this.props.actions.enableButton(this.props.book.id);
+    this.props.actions.removeFromCart(this.props.book.id);
   };
 
   render() {

@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { NavLink } from "react-router-dom";
+import { Button, Icon } from "antd";
 import BookCartRow from "../components/BookCartRow";
 import { Divider } from "antd";
 import { connect } from "react-redux";
@@ -52,7 +54,13 @@ class BooksCart extends Component {
           <tbody>{bookCartRows}</tbody>
         </table>
         <Divider />
-        <div>Total: {TotalPrice}</div>
+        <div>Total: {TotalPrice} AUD</div>
+
+        <NavLink to="/checkout">
+          <Button type="primary">
+            Checkout<Icon type="right" />
+          </Button>
+        </NavLink>
       </div>
     );
   }

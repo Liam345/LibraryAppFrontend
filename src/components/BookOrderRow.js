@@ -28,8 +28,8 @@ class BookOrderRow extends React.Component {
     }
     return (
       <tr className="table-body">
-        <td>{this.props.book.title}</td>
-        <td>{this.props.book.author}</td>
+        <td>{title}</td>
+        <td>{author}</td>
         <td>
           <Button
             type="primary"
