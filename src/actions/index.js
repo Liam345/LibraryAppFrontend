@@ -8,6 +8,8 @@ export const UPDATE_QUANTITY_PRICE = "UPDATE_QUANTITY_PRICE";
 export const DISABLE_BUTTON = "DISABLE_BUTTON";
 export const ENABLE_BUTTON = "ENABLE_BUTTON";
 export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
+export const LOG_IN = "LOG_IN";
+export const LOG_OUT = "LOG_OUT";
 
 export function requestBooks() {
   const data = request.get("/api/books");
@@ -70,6 +72,18 @@ export function enableButton(id) {
   return {
     type: ENABLE_BUTTON,
     payload: id
+  };
+}
+
+export function login() {
+  return {
+    type: LOG_IN
+  };
+}
+
+export function logout() {
+  return {
+    type: LOG_OUT
   };
 }
 

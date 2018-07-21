@@ -4,6 +4,7 @@ import CartsReducer from "./cart";
 import QuantityReducer from "./quantity";
 import QuantityPriceReducer from "./quantityprice";
 import ButtonsReducer from "./button";
+import LoginReducer from "./login";
 import { reducer as formReducer } from "redux-form";
 
 //import IsAddedReducer from "./isAdded";
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
   bookQuantity: QuantityReducer,
   bookQuantityPrice: QuantityPriceReducer,
   isButtonDisabled: ButtonsReducer,
-  form: formReducer
+  form: formReducer,
+  isLoggedIn: LoginReducer
 
   //isAdded: IsAddedReducer
 });

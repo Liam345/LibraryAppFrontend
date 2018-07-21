@@ -1,5 +1,14 @@
 import React from "react";
-import { Field, reduxForm } from "redux-form";
+import { Field, reduxForm, SubmissionError } from "redux-form";
+import { Redirect } from "react-router-dom";
+
+//We get this returned value from server on POST request to /auth/signup
+// {
+//   return res.status(400).json({
+//       success:false,
+//       message:'Could not process the form',
+//       errors:info.message,
+//   });
 
 const validate = values => {
   const errors = {};
@@ -35,29 +44,40 @@ const validate = values => {
   return errors;
 };
 
+const submit = values => {
+  console.log(values);
+
+  return fetch("/auth/signup", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(values)
+  })
+    .then(res => {
+      return res.json();
+    })
+    .then(response => {
+      console.log("res: " + JSON.stringify(response));
+      console.log(response.errors);
+      throw new SubmissionError({
+        _errors: `${response.message} : ${response.errors}`
+      });
+      if (response.success) {
+        console.log("Form Signup successful");
+        this.props.history.push("/login");
+      } else {
+        console.log("error");
+
+        console.log(response.errors);
+        console.log(response.message);
+      }
+    });
+};
+
 class Signup extends React.Component {
-  handleFormSubmit = values => {
-    console.log(values);
-
-    // fetch(`/api/users`, {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json"
-    //   },
-    //   body: JSON.stringify(values)
-    // })
-    //   .then(response => {
-    //     if (response.status >= 400) {
-    //       throw new Error("Bad response from server");
-    //     }
-    //     message.success("User added successfully!");
-    //     return response.json();
-    //   })
-    //   .then(() => props.getApi())
-    //   .catch(err => console.log("caught it", err));
-  };
-
   renderField = ({ input, label, type, meta: { touched, error } }) => (
+    //console.log(input);
     <fieldset className="form-group">
       <label>{label}</label>
       <div>
@@ -72,12 +92,16 @@ class Signup extends React.Component {
     </fieldset>
   );
 
+  renderMessage = ({ meta: { error } }) => {
+    return <div>{error && <span>{error}</span>}</div>;
+  };
+
   render() {
     return (
       <div className="container">
         <div className="col-md-6 col-md-offset-3">
           <h3 className="text-center">New User? Sign Up to continue</h3>
-          <form onSubmit={this.props.handleSubmit(this.handleFormSubmit)}>
+          <form onSubmit={this.props.handleSubmit(submit)}>
             <Field
               name="firstName"
               type="text"
@@ -108,6 +132,7 @@ class Signup extends React.Component {
               component={this.renderField}
               label="Password Confirmation"
             />
+            <Field name="_errors" component={this.renderMessage} />
 
             <button action="submit" className="btn btn-primary">
               Sign up
