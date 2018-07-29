@@ -1,5 +1,5 @@
 import React from "react";
-import BookModal from "../containers/CRUBookModal";
+import BookModal from "./CRUBookModal";
 import DeleteModal from "./DeleteModal";
 import EmailModal from "./EmailModal";
 import PropTypes from "prop-types";

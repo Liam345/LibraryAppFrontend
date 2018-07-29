@@ -5,8 +5,8 @@ export const INIT_QUANTITY = "INIT_QUANTITY";
 export const INIT_QUANTITY_PRICE = "INIT_QUANTITY_PRICE";
 export const UPDATE_QUANTITY = "UPDATE_QUANTITY";
 export const UPDATE_QUANTITY_PRICE = "UPDATE_QUANTITY_PRICE";
-export const DISABLE_BUTTON = "DISABLE_BUTTON";
-export const ENABLE_BUTTON = "ENABLE_BUTTON";
+// export const DISABLE_BUTTON = "DISABLE_BUTTON";
+// export const ENABLE_BUTTON = "ENABLE_BUTTON";
 export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 export const LOG_IN = "LOG_IN";
 export const LOG_OUT = "LOG_OUT";
@@ -61,19 +61,19 @@ export function updateQuantityPrice(id, qty, price) {
   };
 }
 
-export function disableButton(id) {
-  return {
-    type: DISABLE_BUTTON,
-    payload: id
-  };
-}
+// export function disableButton(id) {
+//   return {
+//     type: DISABLE_BUTTON,
+//     payload: id
+//   };
+// }
 
-export function enableButton(id) {
-  return {
-    type: ENABLE_BUTTON,
-    payload: id
-  };
-}
+// export function enableButton(id) {
+//   return {
+//     type: ENABLE_BUTTON,
+//     payload: id
+//   };
+// }
 
 export function login() {
   return {
@@ -86,11 +86,3 @@ export function logout() {
     type: LOG_OUT
   };
 }
-
-//   return {
-//     type: REQUEST_BOOKS,
-//     payload: fetch("/api/books", {
-//       cache: "reload",
-//       method: "GET"
-//     }).then(response => response.json())
-//   };

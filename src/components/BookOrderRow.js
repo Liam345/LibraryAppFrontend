@@ -4,6 +4,7 @@ import { Button } from "antd";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as Actions from "../actions";
+import * as ButtonActions from "../actions/button";
 
 class BookOrderRow extends React.Component {
   state = {
@@ -11,7 +12,7 @@ class BookOrderRow extends React.Component {
   };
 
   handleAdd = () => {
-    this.props.actions.disableButton(this.props.book.id);
+    this.props.buttonActions.disableButton(this.props.book.id);
     this.props.actions.addToCart(this.props.book);
     this.props.actions.initQuantity(this.props.book.id);
     this.props.actions.initQuantityPrice(
@@ -57,7 +58,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(Actions, dispatch)
+    actions: bindActionCreators(Actions, dispatch),
+    buttonActions: bindActionCreators(ButtonActions, dispatch)
   };
 }
 

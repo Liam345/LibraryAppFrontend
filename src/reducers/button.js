@@ -1,5 +1,5 @@
-import { DISABLE_BUTTON } from "../actions";
-import { ENABLE_BUTTON } from "../actions";
+import { DISABLE_BUTTON } from "../actions/button";
+import { ENABLE_BUTTON } from "../actions/button";
 
 const initialState = {
   //data: []

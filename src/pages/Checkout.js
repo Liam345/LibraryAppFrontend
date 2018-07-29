@@ -5,14 +5,18 @@ import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as Actions from "../actions";
+import Auth from "../modules/Auth";
+import Login from "./Login";
 
 class Checkout extends React.Component {
   render() {
-    if (!this.props.isLoggedIn) {
-      return <Redirect to="/login" />;
-    } else {
-      return <div> Checkout </div>;
-    }
+    // if (!this.props.isLoggedIn) {
+    // if (Auth.isUserAuthenticated()) {
+    //return <Redirect to="/login" />;
+    // return <Login />;
+    // } else {
+    return <div> Checkout </div>;
+    //}
   }
 }
 function mapStateToProps(state) {

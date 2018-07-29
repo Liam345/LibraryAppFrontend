@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import BookRow from "../components/BookRow";
-import BookModal from "../containers/CRUBookModal";
+import BookModal from "../components/CRUBookModal";
 import { message } from "antd";
 
 class BooksTable extends Component {

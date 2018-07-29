@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as Actions from "../actions";
+import * as ButtonActions from "../actions/button";
 
 class BookCartRow extends React.Component {
   onQuantityChange = value => {
@@ -18,7 +19,7 @@ class BookCartRow extends React.Component {
 
   removeBook = id => {
     console.log(`Delete id= ${id} clicked`);
-    this.props.actions.enableButton(this.props.book.id);
+    this.props.buttonActions.enableButton(this.props.book.id);
     this.props.actions.removeFromCart(this.props.book.id);
   };
 
@@ -57,7 +58,8 @@ BookCartRow.propTypes = {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(Actions, dispatch)
+    actions: bindActionCreators(Actions, dispatch),
+    buttonActions: bindActionCreators(ButtonActions, dispatch)
   };
 }
 

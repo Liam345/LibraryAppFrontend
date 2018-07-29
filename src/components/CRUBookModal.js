@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Modal, Button } from "antd";
 import PropTypes from "prop-types";
-import SingleInput from "../components/SingleInput";
-import FormErrors from "../components/FormErrors";
+import SingleInput from "./SingleInput";
+import FormErrors from "./FormErrors";
 
 class BookModal extends Component {
   state = {
