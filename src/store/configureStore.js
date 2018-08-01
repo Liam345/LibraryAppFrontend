@@ -19,6 +19,7 @@ export default function configureStore() {
     )
   );
 
+  //add lodash throttle for performance optimization
   store.subscribe(() => {
     localStorage.setItem("reduxState", JSON.stringify(store.getState()));
   });

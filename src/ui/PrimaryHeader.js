@@ -1,10 +1,14 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import fakeAuth from "../modules/fakeAuth";
+import { connect } from "react-redux";
 
-const PrimaryHeader = () => (
+const PrimaryHeader = (
+  props //console.log(props.user.userData.firstName);
+) => (
   <header>
     Welcome to our Bookstore!
+    {props.user.userData ? props.user.userData.lastName : ""}
     <NavLink to="/" exact>
       Home
     </NavLink>
@@ -18,4 +22,10 @@ const PrimaryHeader = () => (
   </header>
 );
 
-export default PrimaryHeader;
+function mapStateToProps(state) {
+  return {
+    user: state.user
+  };
+}
+
+export default connect(mapStateToProps)(PrimaryHeader);

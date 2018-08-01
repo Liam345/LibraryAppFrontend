@@ -139,7 +139,7 @@ class Signup extends React.Component {
             </button>
           </form>
           <br />
-          <NavLink to="/login">Already signed up? Log in.</NavLink>
+          <NavLink to="/login">Already have an account? Log in.</NavLink>
         </div>
       </div>
     );

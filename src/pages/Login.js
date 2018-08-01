@@ -3,6 +3,9 @@ import { Field, reduxForm, SubmissionError } from "redux-form";
 import { Redirect, NavLink } from "react-router-dom";
 import Auth from "../modules/Auth";
 import fakeAuth from "../modules/fakeAuth";
+import * as UserActions from "../actions/user";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 
 class Login extends React.Component {
   constructor(props) {
@@ -49,6 +52,9 @@ class Login extends React.Component {
           fakeAuth.authenticate(() => {
             this.setState({ redirectToReferrer: true });
           });
+          console.log("Response user");
+          console.log(response.user);
+          this.props.userActions.saveUserName(response.user);
 
           //save the token
           Auth.authenticateUser(response.token);
@@ -119,6 +125,14 @@ class Login extends React.Component {
     );
   }
 }
+
+function mapDispatchToProps(dispatch) {
+  return {
+    userActions: bindActionCreators(UserActions, dispatch)
+  };
+}
+
+Login = connect(null, mapDispatchToProps)(Login);
 
 export default reduxForm({
   form: "login"
