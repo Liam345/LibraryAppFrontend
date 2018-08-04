@@ -58,7 +58,7 @@ class BooksCart extends Component {
 
         <NavLink to="/checkout">
           <Button type="primary">
-            Checkout<Icon type="right" />
+            Complete Order<Icon type="right" />
           </Button>
         </NavLink>
       </div>

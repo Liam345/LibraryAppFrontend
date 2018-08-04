@@ -5,12 +5,31 @@ import { bindActionCreators } from "redux";
 import * as Actions from "../actions";
 
 class BooksOrder extends Component {
+  state = {
+    bookList: []
+  };
+  getApi = () => {
+    fetch("/api/books", {
+      cache: "reload",
+      method: "GET"
+    })
+      .then(response => {
+        if (response.status >= 400) {
+          throw new Error("Bad response from server");
+        }
+        return response.json();
+      })
+      .then(data => this.setState({ bookList: data }))
+      .catch(err => console.log("caught it", err));
+  };
+
   componentDidMount() {
-    this.props.actions.requestBooks();
+    this.getApi();
+    //this.props.actions.requestBooks();
   }
 
   render() {
-    const bookOrderRows = this.props.bookList.map(book => {
+    const bookOrderRows = this.state.bookList.map(book => {
       return <BookOrderRow key={book.id} book={book} />;
     });
     return (
