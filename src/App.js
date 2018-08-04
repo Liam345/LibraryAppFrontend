@@ -11,14 +11,13 @@ import Signup from "./pages/Signup";
 import FourOhFour from "./pages/FourOhFour";
 import LogoutFunction from "./pages/LogoutFunction";
 import Auth from "./modules/Auth";
-import fakeAuth from "./modules/fakeAuth";
 import { connect } from "react-redux";
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={props =>
-      fakeAuth.isAuthenticated ? (
+      Auth.isUserAuthenticated() ? (
         <Component {...props} {...rest} />
       ) : (
         <Redirect

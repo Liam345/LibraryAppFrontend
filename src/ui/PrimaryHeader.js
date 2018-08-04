@@ -1,6 +1,5 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import fakeAuth from "../modules/fakeAuth";
 import { connect } from "react-redux";
 
 const PrimaryHeader = ({ user }) => (

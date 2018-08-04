@@ -1,5 +1,4 @@
 export const SAVE_USER_DETAILS = "SAVE_USER_DETAILS";
-export const DELETE_USER_DETAILS = "DELETE_USER_DETAILS";
 export const USER_LOGOUT = "USER_LOGOUT";
 
 export function saveUserName(userData) {

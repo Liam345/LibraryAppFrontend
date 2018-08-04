@@ -2,7 +2,6 @@ import React from "react";
 import { Field, reduxForm, SubmissionError } from "redux-form";
 import { Redirect, NavLink } from "react-router-dom";
 import Auth from "../modules/Auth";
-import fakeAuth from "../modules/fakeAuth";
 import * as UserActions from "../actions/user";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
@@ -40,27 +39,15 @@ class Login extends React.Component {
         return res.json();
       })
       .then(response => {
-        console.log("res: " + JSON.stringify(response));
-
         this.setState({
           errors: {}
         });
 
         if (response.success) {
-          console.log("Login successful");
-
-          fakeAuth.authenticate(() => {
-            this.setState({ redirectToReferrer: true });
-          });
-          console.log("Response user");
-          console.log(response.user);
           this.props.userActions.saveUserName(response.user);
-
           //save the token
           Auth.authenticateUser(response.token);
-
-          //return <Redirect to="/app" />;
-          //this.props.history.push("/checkout");
+          this.setState({ redirectToReferrer: true });
         } else {
           console.log("error");
           console.log(response);
