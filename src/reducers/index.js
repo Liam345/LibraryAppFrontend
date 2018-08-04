@@ -3,7 +3,6 @@ import BooksReducer from "./books";
 import CartsReducer from "./cart";
 import QuantityReducer from "./quantity";
 import ButtonsReducer from "./button";
-import LoginReducer from "./login";
 import UserReducer from "./user";
 import { reducer as formReducer } from "redux-form";
 import { USER_LOGOUT } from "../actions/user";
@@ -14,7 +13,6 @@ const appReducer = combineReducers({
   bookQuantity: QuantityReducer,
   isButtonDisabled: ButtonsReducer,
   form: formReducer,
-  isLoggedIn: LoginReducer,
   user: UserReducer
 });
 

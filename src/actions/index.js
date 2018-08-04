@@ -58,15 +58,3 @@ export function updateQuantityPrice(id, qty, price) {
     payload: { id: id, qty: qty, price: price }
   };
 }
-
-export function login() {
-  return {
-    type: LOG_IN
-  };
-}
-
-export function logout() {
-  return {
-    type: LOG_OUT
-  };
-}
