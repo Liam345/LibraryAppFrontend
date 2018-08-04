@@ -3,18 +3,16 @@ import { NavLink } from "react-router-dom";
 import fakeAuth from "../modules/fakeAuth";
 import { connect } from "react-redux";
 
-const PrimaryHeader = (
-  props //console.log(props.user.userData.firstName);
-) => (
+const PrimaryHeader = ({ user }) => (
   <header>
     Welcome to our Bookstore!
-    {props.user.userData ? props.user.userData.lastName : ""}
+    {user.userData ? user.userData.lastName : ""}
     <NavLink to="/" exact>
       Home
     </NavLink>
     <NavLink to="/cart">Cart</NavLink>
-    <NavLink to="/app">App</NavLink>
-    {fakeAuth.isAuthenticated ? (
+    {user.isAdmin && <NavLink to="/app">App</NavLink>}
+    {user.isLoggedIn ? (
       <NavLink to="/logout">Logout</NavLink>
     ) : (
       <NavLink to="/login">Login</NavLink>

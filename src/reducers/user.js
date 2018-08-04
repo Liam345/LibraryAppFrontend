@@ -1,10 +1,7 @@
 import { SAVE_USER_DETAILS } from "../actions/user";
-//import { DELETE_USER_DETAILS } from "../actions/user"; //redundant after user logout
-
-const adminEmails = ["testfour@gmail.com"];
-const initialState = {
-  //data: []
-};
+import adminEmails from "../modules/admin";
+//const adminEmails = ["testfour@gmail.com"];
+const initialState = {};
 
 export default function books(state = initialState, action) {
   switch (action.type) {
@@ -15,22 +12,17 @@ export default function books(state = initialState, action) {
         return {
           ...state,
           userData: action.payload,
-          isLoggedin: true,
+          isLoggedIn: true,
           isAdmin: true
         };
       } else {
         return {
           ...state,
           userData: action.payload,
-          isLoggedin: true,
+          isLoggedIn: true,
           isAdmin: false
         };
       }
-    // case DELETE_USER_DETAILS:
-    //   return {
-    //     ...state,
-    //     userData: {}
-    //   };
     default:
       return state;
   }
