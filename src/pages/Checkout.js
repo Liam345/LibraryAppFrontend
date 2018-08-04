@@ -10,13 +10,7 @@ import Login from "./Login";
 
 class Checkout extends React.Component {
   render() {
-    // if (!this.props.isLoggedIn) {
-    // if (Auth.isUserAuthenticated()) {
-    //return <Redirect to="/login" />;
-    // return <Login />;
-    // } else {
     return <div> Checkout </div>;
-    //}
   }
 }
 function mapStateToProps(state) {
@@ -32,15 +26,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Checkout);
-
-//const isLoggedIn = false;
-
-// const Checkout = () => {
-//   if (!isLoggedIn) {
-//     return <Redirect to="/login" />;
-//   } else {
-//     return <div> Checkout </div>;
-//   }
-// };
-
-//export default Checkout;

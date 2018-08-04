@@ -63,9 +63,7 @@ class Login extends React.Component {
           //this.props.history.push("/checkout");
         } else {
           console.log("error");
-
           console.log(response);
-          //console.log(response.message);
         }
         throw new SubmissionError({
           _errors: `${response.message}`

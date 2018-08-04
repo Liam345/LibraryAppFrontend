@@ -14,9 +14,3 @@ export function userLogout() {
     type: USER_LOGOUT
   };
 }
-
-// export function deleteUserName() {
-//   return {
-//     type: DELETE_USER_DETAILS
-//   };
-// }

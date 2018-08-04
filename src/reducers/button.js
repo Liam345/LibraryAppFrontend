@@ -1,9 +1,7 @@
 import { DISABLE_BUTTON } from "../actions/button";
 import { ENABLE_BUTTON } from "../actions/button";
 
-const initialState = {
-  //data: []
-};
+const initialState = {};
 
 export default function button(state = initialState, action) {
   switch (action.type) {

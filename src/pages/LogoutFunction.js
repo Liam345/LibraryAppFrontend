@@ -7,9 +7,6 @@ import * as UserActions from "../actions/user";
 import { bindActionCreators } from "redux";
 
 class LogoutFunction extends React.Component {
-  // state = {
-  //     redirect
-  // }
   componentDidMount() {
     // deauthenticate user
     Auth.deauthenticateUser();

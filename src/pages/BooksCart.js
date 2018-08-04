@@ -70,7 +70,6 @@ function mapStateToProps(state) {
   return {
     cartItems: state.cartItems,
     bookQuantity: state.bookQuantity
-    //bookQuantityPrice: state.bookQuantityPrice
   };
 }
 function mapDispatchToProps(dispatch) {

@@ -32,12 +32,7 @@ class BookOrderRow extends React.Component {
         <td>{title}</td>
         <td>{author}</td>
         <td>
-          <Button
-            type="primary"
-            //disabled={this.state.isDisabled[this.props.book.id] || false}
-            disabled={isDisabled}
-            onClick={this.handleAdd}
-          >
+          <Button type="primary" disabled={isDisabled} onClick={this.handleAdd}>
             Add To Cart
           </Button>
         </td>
