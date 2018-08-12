@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import BookRow from "../components/BookRow";
 import BookModal from "../components/CRUBookModal";
 import { message } from "antd";
+import { Helmet } from "react-helmet";
 
 class BooksTable extends Component {
   constructor(props) {
@@ -57,6 +58,12 @@ class BooksTable extends Component {
     });
     return (
       <div className="container">
+        <Helmet>
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+          />
+        </Helmet>
         <table className="table table-striped table-bordered">
           <thead className="table-header">
             <tr>

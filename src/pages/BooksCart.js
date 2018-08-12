@@ -56,7 +56,7 @@ class BooksCart extends Component {
         <Divider />
         <div>Total: {TotalPrice} AUD</div>
 
-        <NavLink to="/checkout">
+        <NavLink to="/checkout/address">
           <Button type="primary">
             Complete Order<Icon type="right" />
           </Button>

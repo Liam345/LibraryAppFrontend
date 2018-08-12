@@ -2,7 +2,7 @@ import React from "react";
 import { CardElement, injectStripe } from "react-stripe-elements";
 //import { Button } from "antd";
 import styled from "styled-components";
-import { Helmet } from "react-helmet";
+import AddressForm from "../components/AddressForm";
 
 const Container = styled.div`
   max-width: 80%;
@@ -13,31 +13,12 @@ const Div = styled.div`
   margin: 5%;
 `;
 
-const LabelInputWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  max-width: 100%;
-  max-height: 100%;
-`;
-
 const Label = styled.section`
   font-size:125%
   flex: 1;
   margin-left:20%;
   @media (max-width: 900px) {
     margin:0%;
-  }
-`;
-
-const Input = styled.input`
-  flex: 1;
-  width: 500px;
-  margin-left: 20%;
-  @media (max-width: 900px) {
-    margin: 0%;
-  }
-  @media (max-width: 700px) {
-    width: 100%;
   }
 `;
 
@@ -71,10 +52,16 @@ const Button = styled.button`
 `;
 
 class CheckoutForm extends React.Component {
-  state = { complete: false };
+  state = {
+    complete: false
+  };
 
   handleSubmit = e => {
     e.preventDefault();
+    this.handlePayment();
+  };
+
+  handlePayment = () => {
     this.props.stripe
       .createToken()
       .then(({ token }) => {
@@ -94,44 +81,12 @@ class CheckoutForm extends React.Component {
     if (this.state.complete) return <h1>Purchase Complete</h1>;
     return (
       <Container>
-        <Helmet>
-          <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1.0"
-          />
-        </Helmet>
-        <Div>
-          <Label>SHIPPING AND BILLING INFORMATION</Label>
-          <br />
-          <LabelInputWrapper>
-            <Label>Address:</Label>
-            <Input />
-          </LabelInputWrapper>
-          <LabelInputWrapper>
-            <Label>City:</Label>
-            <Input />
-          </LabelInputWrapper>
-          <LabelInputWrapper>
-            <Label>State:</Label>
-            <Input />
-          </LabelInputWrapper>
-          <LabelInputWrapper>
-            <Label>ZIP:</Label>
-            <Input />
-          </LabelInputWrapper>
-          <LabelInputWrapper>
-            <Label>Country:</Label>
-            <Input disabled defaultValue="Australia" />
-          </LabelInputWrapper>
-        </Div>
         <Div>
           <Label>PAYMENT INFORMATION</Label>
           <br />
           <CardElementWrap>
             <CardElement />
-            <Button type="primary" onClick={this.handleSubmit}>
-              Pay
-            </Button>
+            <Button onClick={this.handleSubmit}>Pay</Button>
           </CardElementWrap>
         </Div>
       </Container>

@@ -12,6 +12,7 @@ import FourOhFour from "./pages/FourOhFour";
 import LogoutFunction from "./pages/LogoutFunction";
 import Auth from "./modules/Auth";
 import { connect } from "react-redux";
+import AddressForm from "./components/AddressForm";
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
@@ -48,7 +49,12 @@ class App extends Component {
                   path="/app"
                   component={this.props.isAdmin ? BooksTable : FourOhFour}
                 />
-                <PrivateRoute path="/checkout" component={Checkout} />
+                <PrivateRoute
+                  path="/checkout/address"
+                  component={AddressForm}
+                />
+                <PrivateRoute path="/checkout/pay" component={Checkout} />
+
                 <Route path="/logout" component={LogoutFunction} />
               </Switch>
             </main>
