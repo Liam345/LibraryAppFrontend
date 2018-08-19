@@ -1,7 +1,8 @@
 import React from "react";
 import { CardElement, injectStripe } from "react-stripe-elements";
-//import { Button } from "antd";
 import styled from "styled-components";
+import { connect } from "react-redux";
+
 import AddressForm from "../components/AddressForm";
 
 const Container = styled.div`
@@ -53,7 +54,8 @@ const Button = styled.button`
 
 class CheckoutForm extends React.Component {
   state = {
-    complete: false
+    complete: false,
+    customerStripeId: ""
   };
 
   handleSubmit = e => {
@@ -61,20 +63,55 @@ class CheckoutForm extends React.Component {
     this.handlePayment();
   };
 
-  handlePayment = () => {
-    this.props.stripe
-      .createToken()
-      .then(({ token }) => {
-        fetch("/api/charge", {
-          method: "POST",
-          headers: { "Content-Type": "text/plain" },
-          body: token.id
-        }).then(response => {
-          console.log(response);
-          if (response.ok) this.setState({ complete: true });
-        });
+  createCharge = () => {
+    const { customerStripeId } = this.state;
+
+    fetch("/api/charge", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ customerStripeId, amount: 1200 })
+    })
+      .then(res => {
+        return res.json();
       })
-      .catch(err => console.log("Error in credit card fields", err));
+      .then(response => {
+        if (response.captured) {
+          this.setState({ complete: true });
+        }
+      })
+      .catch(err => {
+        console.log("Payment was unsuccessful", err);
+      });
+  };
+
+  createOrRetrieveStripeCustomer = () => {
+    const { email, lastName } = this.props.user;
+    this.props.stripe
+      .createToken({
+        name: lastName,
+        email: email
+      })
+      .then(({ token }) => {
+        fetch("/api/customer", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ token: token.id, email: email })
+        })
+          .then(res => {
+            return res.json();
+          })
+          .then(response => {
+            this.setState({ customerStripeId: response.customerStripeId }, () =>
+              this.createCharge()
+            );
+          });
+      })
+      .catch(err => {
+        console.log("Payment was unsuccessful", err);
+      });
+  };
+  handlePayment = () => {
+    this.createOrRetrieveStripeCustomer();
   };
 
   render() {
@@ -94,4 +131,10 @@ class CheckoutForm extends React.Component {
   }
 }
 
-export default injectStripe(CheckoutForm);
+function mapStateToProps(state) {
+  return {
+    user: state.user.userData
+  };
+}
+
+export default injectStripe(connect(mapStateToProps)(CheckoutForm));

@@ -5,6 +5,7 @@ import Auth from "../modules/Auth";
 import * as UserActions from "../actions/user";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
+import { consolidateStreamedStyles } from "../../node_modules/styled-components";
 
 class Login extends React.Component {
   constructor(props) {
@@ -42,7 +43,6 @@ class Login extends React.Component {
         this.setState({
           errors: {}
         });
-
         if (response.success) {
           this.props.userActions.saveUserName(response.user);
           //save the token
