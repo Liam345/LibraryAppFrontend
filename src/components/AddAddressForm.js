@@ -1,8 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import { Button } from "antd";
-import { message } from "antd";
+import { Button, message, Icon } from "antd";
 import { connect } from "react-redux";
+import { NavLink } from "react-router-dom";
+
+const ButtonGroup = Button.Group;
 
 const Container = styled.div`
   max-width: 80%;
@@ -16,6 +18,19 @@ const LabelInputWrapper = styled.div`
   max-height: 100%;
 `;
 
+const Wrapper = styled.div`
+  margin-left: 35%;
+  @media (max-width: 950px) {
+    margin-left: 40%;
+  }
+  @media (max-width: 850px) {
+    margin-left: 25%;
+  }
+  @media (max-width: 500px) {
+    margin-left: 20%;
+  }
+`;
+
 const Input = styled.input`
   flex: 1;
   width: 500px;
@@ -26,10 +41,6 @@ const Input = styled.input`
   @media (max-width: 700px) {
     width: 100%;
   }
-`;
-
-const Div = styled.div`
-  margin: 5%;
 `;
 
 const Label = styled.section`
@@ -83,14 +94,12 @@ class AddressForm extends React.Component {
     };
   };
 
-  handleSubmit = e => {
-    e.preventDefault();
+  submitNewAddress = () => {
     const isValidForm = this.validateAddress();
     const userId = this.props.user.id;
     const values = this.getAddressValues();
     if (isValidForm) {
       this.setState({ formValid: true });
-      //send request to API
       fetch(`/api/address/${userId}`, {
         method: "POST",
         headers: {
@@ -100,7 +109,7 @@ class AddressForm extends React.Component {
       })
         .then(response => {
           if (response.status === 201) {
-            this.props.history.push("/checkout/pay");
+            this.props.history.push("/checkout/address");
           } else {
             message.error("Network error: Address could not be added");
           }
@@ -115,8 +124,7 @@ class AddressForm extends React.Component {
   render() {
     return (
       <Container>
-        <Div>
-          <Label>SHIPPING AND BILLING INFORMATION</Label>
+        <div>
           <br />
           <LabelInputWrapper>
             <Label>Address:</Label>
@@ -139,11 +147,20 @@ class AddressForm extends React.Component {
             <Input name="country" onChange={this.handleUserInput} />
           </LabelInputWrapper>
           <LabelInputWrapper />
-          <br />
-          <Button type="primary" onClick={this.handleSubmit}>
-            Save and continue
-          </Button>
-        </Div>
+        </div>
+        <br />
+        <Wrapper>
+          <ButtonGroup>
+            <NavLink to="/checkout/address">
+              <Button type="primary">
+                <Icon type="left" />Go Back
+              </Button>
+            </NavLink>
+            <Button type="primary" onClick={this.submitNewAddress}>
+              Submit
+            </Button>
+          </ButtonGroup>
+        </Wrapper>
       </Container>
     );
   }

@@ -3,7 +3,7 @@ import { CardElement, injectStripe } from "react-stripe-elements";
 import styled from "styled-components";
 import { connect } from "react-redux";
 
-import AddressForm from "../components/AddressForm";
+//import AddressForm from "../components/AddressForm";
 
 const Container = styled.div`
   max-width: 80%;
