@@ -16,12 +16,14 @@ class BookModal extends Component {
     formErrors: {
       title: "field is empty",
       author: "field is empty",
-      email: "field is invalid"
+      email: "field is invalid",
+      price: "field is empty"
     },
-    titleValid: false,
-    authorValid: false,
-    emailValid: false,
-    formValid: false,
+    titleValid: this.props.formValid,
+    authorValid: this.props.formValid,
+    emailValid: this.props.formValid,
+    priceValid: this.props.formValid,
+    formValid: this.props.formValid,
     showErrors: false
   };
 
@@ -29,16 +31,23 @@ class BookModal extends Component {
     this.setState({
       visible: true
     });
-    this.validateField("title", this.state.title);
-    this.validateField("author", this.state.author);
-    this.validateField("email", this.state.email);
+    // this.validateField("title", this.state.title);
+    // this.validateField("author", this.state.author);
+    // this.validateField("email", this.state.email);
   };
 
   validateField(fieldName, value) {
-    let formErrors = this.state.formErrors;
-    let titleValid = this.state.titleValid;
-    let emailValid = this.state.emailValid;
-    let authorValid = this.state.authorValid;
+    let {
+      formErrors,
+      titleValid,
+      emailValid,
+      authorValid,
+      priceValid
+    } = this.state;
+    // let formErrors = this.state.formErrors;
+    // let titleValid = this.state.titleValid;
+    // let emailValid = this.state.emailValid;
+    // let authorValid = this.state.authorValid;
     let emailMatch;
 
     switch (fieldName) {
@@ -55,16 +64,21 @@ class BookModal extends Component {
         emailValid = emailMatch === null ? false : true;
         formErrors.email = emailValid ? "" : "field is invalid";
         break;
+      case "price":
+        priceValid = value.length > 0 && !isNaN(Number(value));
+        formErrors.price = priceValid ? "" : "field is invalid";
+        break;
       default:
         break;
     }
 
     this.setState(
       {
-        formErrors: formErrors,
-        titleValid: titleValid,
-        authorValid: authorValid,
-        emailValid: emailValid
+        formErrors,
+        titleValid,
+        authorValid,
+        emailValid,
+        priceValid
       },
       this.validateForm
     );
@@ -73,7 +87,10 @@ class BookModal extends Component {
   validateForm() {
     this.setState({
       formValid:
-        this.state.titleValid && this.state.authorValid && this.state.emailValid
+        this.state.titleValid &&
+        this.state.authorValid &&
+        this.state.emailValid &&
+        this.state.priceValid
     });
   }
 

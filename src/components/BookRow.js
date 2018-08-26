@@ -68,6 +68,7 @@ const BookRow = props => {
       <td>{props.book.price}</td>
       <td className="highlight">
         <BookModal
+          type="Edit"
           id={props.book.id}
           btnText="Edit book"
           header="Edit book details"
@@ -76,6 +77,7 @@ const BookRow = props => {
           email={props.book.email}
           price={props.book.price}
           handleData={putData}
+          formValid={true}
         />
       </td>
       <td>

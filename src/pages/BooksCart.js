@@ -22,7 +22,6 @@ class BooksCart extends Component {
       this.props.cartItems.forEach(book => {
         totalPrice += book.price * nextProps.bookQuantity[book.id];
       });
-      //this.props.updateTotalPrice(totalPrice);
       this.setState({ totalPrice });
     }
   }
@@ -32,16 +31,11 @@ class BooksCart extends Component {
     this.props.cartItems.forEach(book => {
       totalPrice += book.price * this.props.bookQuantity[book.id];
     });
-    //this.props.updateTotalPrice(totalPrice);
     this.setState({ totalPrice });
   }
 
   render() {
     const { bookQuantity, cartItems } = this.props;
-    //let TotalPrice = 0;
-    // cartItems.forEach(book => {
-    //   TotalPrice += book.price * bookQuantity[book.id];
-    // });
     const bookCartRows =
       !Array.isArray(cartItems) || cartItems.length === 0 ? (
         <tr>

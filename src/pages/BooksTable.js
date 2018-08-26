@@ -77,6 +77,7 @@ class BooksTable extends Component {
                   btnText="Add book"
                   header="Add a new book"
                   handleData={this.postData}
+                  formValid={false}
                 />
               </th>
             </tr>
