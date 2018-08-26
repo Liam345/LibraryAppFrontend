@@ -1,9 +1,10 @@
 import React from "react";
 import { CardElement, injectStripe } from "react-stripe-elements";
 import styled from "styled-components";
+import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-
-//import AddressForm from "../components/AddressForm";
+import * as OrderActions from "../actions/order";
+import { message } from "antd";
 
 const Container = styled.div`
   max-width: 80%;
@@ -63,21 +64,54 @@ class CheckoutForm extends React.Component {
     this.handlePayment();
   };
 
+  createOrder = (chargeId, status) => {
+    const { bookQuantity } = this.props;
+    const userId = this.props.user.id;
+    const { price, addressId } = this.props.order;
+    fetch(`/api/order/${userId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        bookQuantity,
+        totalAmount: price,
+        status,
+        addressId,
+        chargeId
+      })
+    })
+      .then(response => {
+        if (response.status === 201) {
+          this.setState({ complete: true });
+          this.props.orderActions.orderComplete();
+        } else {
+          message.error("Network error: Order could not be completed");
+        }
+      })
+      .catch(error => console.error("Error:", error));
+  };
+
   createCharge = () => {
     const { customerStripeId } = this.state;
-
+    const amountInCents = this.props.order.price * 100;
     fetch("/api/charge", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ customerStripeId, amount: 1200 })
+      body: JSON.stringify({ customerStripeId, amount: amountInCents })
     })
       .then(res => {
         return res.json();
       })
       .then(response => {
+        const chargeId = response.id;
+        let orderStatus;
         if (response.captured) {
-          this.setState({ complete: true });
+          orderStatus = "paid";
+        } else {
+          orderStatus = "created";
         }
+        this.createOrder(chargeId, orderStatus);
       })
       .catch(err => {
         console.log("Payment was unsuccessful", err);
@@ -133,8 +167,18 @@ class CheckoutForm extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    user: state.user.userData
+    bookQuantity: state.bookQuantity,
+    user: state.user.userData,
+    order: state.orderDetails
   };
 }
 
-export default injectStripe(connect(mapStateToProps)(CheckoutForm));
+function mapDispatchToProps(dispatch) {
+  return {
+    orderActions: bindActionCreators(OrderActions, dispatch)
+  };
+}
+
+export default injectStripe(
+  connect(mapStateToProps, mapDispatchToProps)(CheckoutForm)
+);

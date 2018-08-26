@@ -1,9 +1,5 @@
 import React, { Component } from "react";
 import BookOrderRow from "../components/BookOrderRow";
-import { connect } from "react-redux";
-
-// import { bindActionCreators } from "redux";
-// import * as Actions from "../actions";
 
 class BooksOrder extends Component {
   state = {
@@ -26,8 +22,6 @@ class BooksOrder extends Component {
 
   componentDidMount() {
     this.getApi();
-    //Reverted this code as it cause err
-    //this.props.actions.requestBooks();
   }
 
   render() {
@@ -51,16 +45,4 @@ class BooksOrder extends Component {
   }
 }
 
-// function mapStateToProps(state) {
-//   return {
-//     bookList: state.bookList.data
-//   };
-// }
-// function mapDispatchToProps(dispatch) {
-//   return {
-//     actions: bindActionCreators(Actions, dispatch)
-//   };
-// }
-
-//export default connect(mapStateToProps, mapDispatchToProps)(BooksOrder);
 export default BooksOrder;

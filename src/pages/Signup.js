@@ -1,6 +1,6 @@
 import React from "react";
 import { Field, reduxForm, SubmissionError } from "redux-form";
-import { Redirect, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 //We get this returned value from server on POST request to /auth/signup
 // {

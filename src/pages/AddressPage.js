@@ -4,6 +4,8 @@ import { NavLink } from "react-router-dom";
 import AddressList from "../components/AddressList";
 import { Button, Icon, message } from "antd";
 import styled from "styled-components";
+import { bindActionCreators } from "redux";
+import * as OrderActions from "../actions/order";
 
 const Container = styled.div`
   max-width: 80%;
@@ -30,8 +32,7 @@ class AddressPage extends React.Component {
     if (this.state.addressId === -1) {
       message.error("Delivery address needs to be selected");
     } else {
-      console.log("We are ready");
-
+      this.props.orderActions.addOrderAddressId(this.state.addressId);
       this.props.history.push("/checkout/pay");
     }
   };
@@ -95,5 +96,10 @@ function mapStateToProps(state) {
     user: state.user.userData
   };
 }
+function mapDispatchToProps(dispatch) {
+  return {
+    orderActions: bindActionCreators(OrderActions, dispatch)
+  };
+}
 
-export default connect(mapStateToProps)(AddressPage);
+export default connect(mapStateToProps, mapDispatchToProps)(AddressPage);

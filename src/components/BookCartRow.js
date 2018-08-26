@@ -10,17 +10,12 @@ import * as ButtonActions from "../actions/button";
 class BookCartRow extends React.Component {
   onQuantityChange = value => {
     this.props.actions.updateQuantity(this.props.book.id, value);
-    this.props.actions.updateQuantityPrice(
-      this.props.book.id,
-      value,
-      this.props.book.price
-    );
   };
 
   removeBook = id => {
-    console.log(`Delete id= ${id} clicked`);
     this.props.buttonActions.enableButton(this.props.book.id);
     this.props.actions.removeFromCart(this.props.book.id);
+    this.props.actions.updateQuantity(this.props.book.id, 0);
   };
 
   render() {

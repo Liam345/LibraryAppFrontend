@@ -24,7 +24,7 @@ const linkStyle = {
   alignSelf: "center"
 };
 
-const PrimaryHeader = ({ user }) => (
+const PrimaryHeader = ({ user, cartItems }) => (
   <Nav>
     <Logo>
       Welcome to our Bookstore!
@@ -34,7 +34,7 @@ const PrimaryHeader = ({ user }) => (
       Home
     </NavLink>
     <NavLink to="/cart" style={linkStyle}>
-      Cart
+      Cart({cartItems.length})
     </NavLink>
     {user.isAdmin && (
       <NavLink to="/app" style={linkStyle}>
@@ -55,7 +55,8 @@ const PrimaryHeader = ({ user }) => (
 
 function mapStateToProps(state) {
   return {
-    user: state.user
+    user: state.user,
+    cartItems: state.cartItems
   };
 }
 

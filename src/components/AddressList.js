@@ -15,7 +15,6 @@ class AddressList extends React.Component {
   };
 
   onChange = e => {
-    console.log("radio checked from AddressList", e.target.value);
     this.setState({
       value: e.target.value
     });

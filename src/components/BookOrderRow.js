@@ -11,20 +11,19 @@ class BookOrderRow extends React.Component {
     isDisabled: {}
   };
 
-  handleAdd = () => {
+  handleAddToCart = () => {
     this.props.buttonActions.disableButton(this.props.book.id);
     this.props.actions.addToCart(this.props.book);
     this.props.actions.initQuantity(this.props.book.id);
-    this.props.actions.initQuantityPrice(
-      this.props.book.id,
-      this.props.book.price
-    );
   };
   render() {
-    const { isButtonDisabled } = this.props; //should be called are buttons disabled instead
+    const { areButtonsDisabled } = this.props;
     const { id, title, author } = this.props.book;
     let isDisabled = false;
-    if (typeof isButtonDisabled[id] != "undefined" && isButtonDisabled[id]) {
+    if (
+      typeof areButtonsDisabled[id] != "undefined" &&
+      areButtonsDisabled[id]
+    ) {
       isDisabled = true;
     }
     return (
@@ -32,7 +31,11 @@ class BookOrderRow extends React.Component {
         <td>{title}</td>
         <td>{author}</td>
         <td>
-          <Button type="primary" disabled={isDisabled} onClick={this.handleAdd}>
+          <Button
+            type="primary"
+            disabled={isDisabled}
+            onClick={this.handleAddToCart}
+          >
             Add To Cart
           </Button>
         </td>
@@ -47,7 +50,7 @@ BookOrderRow.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    isButtonDisabled: state.isButtonDisabled
+    areButtonsDisabled: state.areButtonsDisabled
   };
 }
 

@@ -5,7 +5,6 @@ import Auth from "../modules/Auth";
 import * as UserActions from "../actions/user";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { consolidateStreamedStyles } from "../../node_modules/styled-components";
 
 class Login extends React.Component {
   constructor(props) {
@@ -27,8 +26,6 @@ class Login extends React.Component {
   }
 
   processForm = values => {
-    console.log(values);
-
     return fetch("/auth/login", {
       method: "POST",
       headers: {
@@ -48,9 +45,6 @@ class Login extends React.Component {
           //save the token
           Auth.authenticateUser(response.token);
           this.setState({ redirectToReferrer: true });
-        } else {
-          console.log("error");
-          console.log(response);
         }
         throw new SubmissionError({
           _errors: `${response.message}`
