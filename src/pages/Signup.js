@@ -46,8 +46,6 @@ const validate = values => {
 
 class Signup extends React.Component {
   processForm = values => {
-    console.log(values);
-
     return fetch("/auth/signup", {
       method: "POST",
       headers: {
@@ -59,17 +57,9 @@ class Signup extends React.Component {
         return res.json();
       })
       .then(response => {
-        console.log("res: " + JSON.stringify(response));
-        console.log(response.errors);
         if (response.success) {
-          console.log("Form Signup successful");
           localStorage.setItem("successMessage", response.message);
           this.props.history.push("/login");
-        } else {
-          console.log("error");
-          // _errors = `${response.message} : ${response.errors}`;
-          console.log(response.errors);
-          console.log(response.message);
         }
         throw new SubmissionError({
           _errors: `${response.message} : ${response.errors}`

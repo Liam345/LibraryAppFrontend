@@ -5,6 +5,13 @@ import AddressRadio from "./AddressRadio";
 
 const RadioGroup = Radio.Group;
 
+const Container = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 50%;
+  margin-left: 10%;
+`;
+
 const Div = styled.div`
   margin: 5%;
 `;
@@ -32,11 +39,11 @@ class AddressList extends React.Component {
     });
 
     return (
-      <div>
+      <Container>
         <RadioGroup onChange={this.onChange} value={this.state.value}>
           {renderAddress}
         </RadioGroup>
-      </div>
+      </Container>
     );
   }
 }

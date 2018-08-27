@@ -8,16 +8,23 @@ import { bindActionCreators } from "redux";
 import * as OrderActions from "../actions/order";
 
 const Container = styled.div`
-  max-width: 80%;
-  margin-top: 10%;
-  margin-left: 10%;
+  margin-top: 5%;
+  padding-left: 20%;
+  @media (max-width: 900px) {
+    padding-left: 10%;
+  }
 `;
-
+const Wrapper = styled.section`
+  padding-left: 10%;
+  @media (max-width: 600px) {
+    padding-left: 0%;
+  }
+`;
 const Label = styled.section`
   font-size:125%
   flex: 1;
-  margin-left:20%;
-  @media (max-width: 900px) {
+  margin-left:10%;
+  @media (max-width: 600px) {
     margin:0%;
   }
 `;
@@ -43,7 +50,6 @@ class AddressPage extends React.Component {
 
   getUserAdresses = () => {
     const userId = this.props.user.id;
-    console.log("Fetching user address");
     fetch(`/api/address/${userId}`, {
       method: "GET",
       headers: {
@@ -56,14 +62,14 @@ class AddressPage extends React.Component {
       .then(data => {
         this.setState({ addressList: data });
       })
-      .catch(error => console.error("Error:", error));
+      .catch(error => this.props.history.push("/404"));
   };
   componentDidMount() {
     this.getUserAdresses();
   }
   render() {
     let existingAddress;
-    if (this.state.addressList.length != 0) {
+    if (this.state.addressList.length !== 0) {
       existingAddress = (
         <AddressList
           addressIdSelected={this.changeSelectedAddressId}
@@ -75,17 +81,20 @@ class AddressPage extends React.Component {
     }
     return (
       <Container>
-        <h3>SELECT ADDRESS FOR DELIVERY</h3>
+        <Label>SELECT ADDRESS FOR DELIVERY</Label>
         {existingAddress}
-        <NavLink to="/checkout/address/add">
-          <Button type="primary">
-            <Icon type="plus-circle-o" />
-            Add new Address
+        <Wrapper>
+          <NavLink to="/checkout/address/add">
+            <Button type="primary">
+              <Icon type="plus-circle-o" />
+              Add new Address
+            </Button>
+          </NavLink>
+
+          <Button type="primary" onClick={this.handlePaymentBtnClick}>
+            Go to Payment
           </Button>
-        </NavLink>
-        <Button type="primary" onClick={this.handlePaymentBtnClick}>
-          Go to Payment
-        </Button>
+        </Wrapper>
       </Container>
     );
   }

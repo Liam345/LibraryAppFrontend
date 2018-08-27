@@ -17,7 +17,7 @@ class BooksOrder extends Component {
         return response.json();
       })
       .then(data => this.setState({ bookList: data }))
-      .catch(err => console.log("caught it", err));
+      .catch(err => this.props.history.push("/404"));
   };
 
   componentDidMount() {

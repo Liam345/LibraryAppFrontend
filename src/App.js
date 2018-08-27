@@ -61,6 +61,7 @@ class App extends Component {
                 <PrivateRoute path="/checkout/pay" component={Checkout} />
 
                 <Route path="/logout" component={LogoutFunction} />
+                <Route path="/404" component={FourOhFour} />
               </Switch>
             </main>
           </div>

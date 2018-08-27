@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as OrderActions from "../actions/order";
-import { message } from "antd";
+const uuidv4 = require("uuid/v4");
 
 const Container = styled.div`
   max-width: 80%;
@@ -52,11 +52,11 @@ const Button = styled.button`
     margin-left: 10%;
   }
 `;
-
 class CheckoutForm extends React.Component {
   state = {
     complete: false,
-    customerStripeId: ""
+    customerStripeId: "",
+    idemKey: uuidv4()
   };
 
   handleSubmit = e => {
@@ -85,20 +85,19 @@ class CheckoutForm extends React.Component {
         if (response.status === 201) {
           this.setState({ complete: true });
           this.props.orderActions.orderComplete();
-        } else {
-          message.error("Network error: Order could not be completed");
         }
       })
       .catch(error => console.error("Error:", error));
   };
 
   createCharge = () => {
-    const { customerStripeId } = this.state;
+    const { customerStripeId, idemKey } = this.state;
+    console.log(idemKey);
     const amountInCents = this.props.order.price * 100;
     fetch("/api/charge", {
-      method: "POST",
+      method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ customerStripeId, amount: amountInCents })
+      body: JSON.stringify({ customerStripeId, amount: amountInCents, idemKey })
     })
       .then(res => {
         return res.json();

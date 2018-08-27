@@ -71,11 +71,11 @@ class AddressForm extends React.Component {
   validateAddress = () => {
     const { addressLine, city, state, zip, country } = this.state;
     if (
-      addressLine.trim().length != 0 &&
-      city.trim().length != 0 &&
-      state.trim().length != 0 &&
-      zip.trim().length != 0 &&
-      country.trim().length != 0
+      addressLine.trim().length !== 0 &&
+      city.trim().length !== 0 &&
+      state.trim().length !== 0 &&
+      zip.trim().length !== 0 &&
+      country.trim().length !== 0
     ) {
       return true;
     } else {

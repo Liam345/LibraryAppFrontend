@@ -21,7 +21,7 @@ class BookOrderRow extends React.Component {
     const { id, title, author } = this.props.book;
     let isDisabled = false;
     if (
-      typeof areButtonsDisabled[id] != "undefined" &&
+      typeof areButtonsDisabled[id] !== "undefined" &&
       areButtonsDisabled[id]
     ) {
       isDisabled = true;
